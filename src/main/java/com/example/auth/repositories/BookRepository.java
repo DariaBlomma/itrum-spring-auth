@@ -19,7 +19,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "WHERE b.id = :bookId " +
             "AND b.user.id = :userId " +
             "AND b.user.deletedAt IS NULL " +
-            "AND b.active = true")
+            "AND b.deletedAt IS NULL")
     Optional<Book> findActiveByIdForUser(@Param("id") Long id, @Param("userId") Long userId);
 
     @Query("SELECT b FROM Book b WHERE b.id IN :ids AND b.deletedAt IS NULL")
