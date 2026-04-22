@@ -13,10 +13,18 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
     Book toEntity(BookRequest request);
 
-    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "user.id", target = "userId")
+    @Mapping(target = "deletedAt", ignore = true)
     BookResponse toResponse(Book book);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
     void update(BookRequest request, @MappingTarget Book book);
 }

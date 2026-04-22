@@ -25,6 +25,7 @@ public class User {
     @Column(nullable = false, length = 200)
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 

@@ -20,34 +20,13 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResponse create(@Valid @RequestBody BookRequest request) {
-        return bookService.create(request);
+    public BookResponse create(Long userId, @Valid @RequestBody BookRequest request) {
+        return bookService.create(userId, request);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BookResponse getOne( @PathVariable("id") Long bookId) {
-        return bookService.getOne(bookId);
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Page<BookResponse> getList(
-            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC)
-           Pageable pageable
-    ) {
-        return bookService.getList(pageable);
-    }
-
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public BookResponse update(@PathVariable("id") Long bookId, @Valid @RequestBody BookRequest request) {
-        return bookService.update(bookId, request);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteSoft(@PathVariable("id") Long bookId) {
-        bookService.deleteSoft(bookId);
+    public BookResponse getOne(Long userId, @PathVariable("id") Long bookId) {
+        return bookService.getOne(userId, bookId);
     }
 }
