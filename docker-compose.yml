@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: spring-auth
+    container_name: spring-auth-pg
     restart: unless-stopped
     environment:
       POSTGRES_DB: testdb
@@ -24,9 +24,10 @@ services:
     ports:
       - "8443:8443"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/testappdb
-      SPRING_DATASOURCE_USERNAME: testappuser
-      SPRING_DATASOURCE_PASSWORD: testapppass
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/testdb
+      SPRING_DATASOURCE_USERNAME: testuser
+      SPRING_DATASOURCE_PASSWORD: testpass
+      JWT_SECRET: ${JWT_SECRET:-dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLWp3dC1zaWduaW5nLXB1cnBvc2Vz}
     depends_on:
       postgres:
         condition: service_healthy
