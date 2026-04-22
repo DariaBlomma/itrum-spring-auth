@@ -1,6 +1,9 @@
 package com.example.auth.entities;
 
+import com.example.auth.enums.UserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +25,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Login is required")
+    @Size(min = 2, max = 200, message = "User Name must be between 2 and 200 characters")
     @Column(nullable = false, length = 200)
-    private String name;
+    private String username;
+
+    @NotBlank(message = "Password is required")
+    @Column(nullable = false, length = 255)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
 
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
