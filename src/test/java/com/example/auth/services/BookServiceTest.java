@@ -2,7 +2,7 @@ package com.example.auth.services;
 
 import com.example.auth.dtos.books.BookRequest;
 import com.example.auth.dtos.books.BookResponse;
-import com.example.auth.entities.Author;
+import com.example.auth.entities.User;
 import com.example.auth.entities.Book;
 import com.example.auth.mappers.BookMapperImpl;
 import org.junit.jupiter.api.DisplayName;
@@ -34,9 +34,9 @@ public class BookServiceTest extends BaseServiceTest {
     class CreateTests {
         @Test
         void shouldReturnCorrectlyMappedDTOWhenProvidedCorrectRequest() {
-            Author author1 = saveTestAuthor();
-            Author author2 = saveAnotherTestAuthor();
-            Set<Long> authorIds = Set.of(author1.getId(), author2.getId());
+            User user1 = saveTestAuthor();
+            User user2 = saveAnotherTestAuthor();
+            Set<Long> authorIds = Set.of(user1.getId(), user2.getId());
 
             BookRequest request = BookRequest.builder()
                     .title("New Book")
@@ -62,9 +62,9 @@ public class BookServiceTest extends BaseServiceTest {
 
         @Test
         void shouldSaveAuthorsToDBWhenAuthorsNotDeleted() {
-            Author author1 = saveTestAuthor();
-            Author author2 = saveAnotherTestAuthor();
-            Set<Long> authorIds = Set.of(author1.getId(), author2.getId());
+            User user1 = saveTestAuthor();
+            User user2 = saveAnotherTestAuthor();
+            Set<Long> authorIds = Set.of(user1.getId(), user2.getId());
 
             BookRequest request = BookRequest.builder()
                     .title("New Book")
@@ -77,8 +77,8 @@ public class BookServiceTest extends BaseServiceTest {
             BookResponse response = bookService.create(request);
 
             Book saved = bookRepository.findById(response.getId()).orElseThrow();
-            Set<Author> expected = Set.of(author1, author2);
-            assertThat(saved.getAuthors()).isEqualTo(expected);
+            Set<User> expected = Set.of(user1, user2);
+            assertThat(saved.getUsers()).isEqualTo(expected);
         }
     }
 
@@ -87,9 +87,9 @@ public class BookServiceTest extends BaseServiceTest {
     class GetOneTests {
         @Test
         void shouldReturnBookWithAuthorsWhenBookIsNotDeleted() {
-            Author author1 = saveTestAuthor();
-            Author author2 = saveAnotherTestAuthor();
-            Book book = saveTestBook(Set.of(author1, author2));
+            User user1 = saveTestAuthor();
+            User user2 = saveAnotherTestAuthor();
+            Book book = saveTestBook(Set.of(user1, user2));
 
             BookResponse response = bookService.getOne(book.getId());
 
@@ -99,7 +99,7 @@ public class BookServiceTest extends BaseServiceTest {
                     .publicationYear(book.getPublicationYear())
                     .pageCount(book.getPageCount())
                     .isHardcover(book.getIsHardcover())
-                    .authorIds(Set.of(author1.getId(), author2.getId()))
+                    .authorIds(Set.of(user1.getId(), user2.getId()))
                     .deletedAt(null)
                     .build();
 
@@ -149,12 +149,12 @@ public class BookServiceTest extends BaseServiceTest {
 
         @Test
         void shouldExcludeDeletedAuthorsFromResponse() {
-            Author activeAuthor = saveTestAuthor();
-            Author deletedAuthor = saveDeletedTestAuthor();
+            User activeUser = saveTestAuthor();
+            User deletedUser = saveDeletedTestAuthor();
             String bookName = "Book With Mixed Authors";
             Book book = getBaseBook().toBuilder()
                     .title(bookName)
-                    .authors(Set.of(activeAuthor, deletedAuthor))
+                    .users(Set.of(activeUser, deletedUser))
                     .build();
             bookRepository.save(book);
 
@@ -164,16 +164,16 @@ public class BookServiceTest extends BaseServiceTest {
                             .findFirst()
                     .orElseThrow(() -> new AssertionError("Book not found in response"));
 
-            assertThat(resultBook.getAuthorIds()).isEqualTo(Set.of(activeAuthor.getId()));
+            assertThat(resultBook.getAuthorIds()).isEqualTo(Set.of(activeUser.getId()));
         }
 
         @Test
         void shouldExcludeDeletedBookFromResponse() {
-            Author activeAuthor = saveTestAuthor();
-            Author anotherAuthor = saveAnotherTestAuthor();
+            User activeUser = saveTestAuthor();
+            User anotherUser = saveAnotherTestAuthor();
 
-           saveTestBook(Set.of(activeAuthor));
-           saveDeletedTestBook(Set.of(anotherAuthor, activeAuthor));
+           saveTestBook(Set.of(activeUser));
+           saveDeletedTestBook(Set.of(anotherUser, activeUser));
 
             Page<BookResponse> result = bookService.getList(Pageable.ofSize(10));
 
@@ -184,14 +184,14 @@ public class BookServiceTest extends BaseServiceTest {
 
         @Test
         void shouldApplyFallbackSort_WhenBookNamesAreIdentical() {
-            Author sharedAuthor = saveTestAuthor();
+            User sharedUser = saveTestAuthor();
 
             Book book = Book.builder()
                     .title("First Book")
                     .publicationYear(Year.of(2024))
                     .pageCount(100)
                     .isHardcover(true)
-                    .authors(Set.of(sharedAuthor))
+                    .users(Set.of(sharedUser))
                     .deletedAt(null)
                     .build();
             Book book2 = book.toBuilder().build();
@@ -228,17 +228,17 @@ public class BookServiceTest extends BaseServiceTest {
         private List<Book> save15BooksForPaginationAndCountTest() {
             List<Book> createdBooks = new ArrayList<>();
 
-            Author author1 = saveTestAuthor();
-            Author author2 = saveAnotherTestAuthor();
-            Author author3 = saveTestAuthor3();
+            User user1 = saveTestAuthor();
+            User user2 = saveAnotherTestAuthor();
+            User user3 = saveTestAuthor3();
 
-            Set<Author> singleAuthorSet = Set.of(author1);
-            Set<Author> twoAuthorsSet = Set.of(author1, author2);
-            Set<Author> threeAuthorsSet = Set.of(author1, author2, author3);
+            Set<User> singleUserSet = Set.of(user1);
+            Set<User> twoAuthorsSet = Set.of(user1, user2);
+            Set<User> threeAuthorsSet = Set.of(user1, user2, user3);
 
             // Создаем 5 книг с 1 автором
             for (int i = 0; i < 5; i++) {
-                createdBooks.add(saveTestBook(singleAuthorSet));
+                createdBooks.add(saveTestBook(singleUserSet));
             }
 
             // Создаем 5 книг с 2 авторами
@@ -260,12 +260,12 @@ public class BookServiceTest extends BaseServiceTest {
     class UpdateTests {
         @Test
         void shouldReturnUpdatedBookWhenNotDeleted() {
-            Author author1 = saveTestAuthor();
-            Author author2 = saveAnotherTestAuthor();
-            Set<Author> authors = Set.of(author1, author2);
-            Book book = saveTestBook(authors);
+            User user1 = saveTestAuthor();
+            User user2 = saveAnotherTestAuthor();
+            Set<User> users = Set.of(user1, user2);
+            Book book = saveTestBook(users);
 
-            Set<Long> authorIds = Set.of(author2.getId());
+            Set<Long> authorIds = Set.of(user2.getId());
 
             BookRequest request = BookRequest.builder()
                     .title("Updated Title")
@@ -292,14 +292,14 @@ public class BookServiceTest extends BaseServiceTest {
 
         @Test
         void shouldUpdateBookAuthorsWhenNewAuthorIdsValid() {
-            Author author1 = saveTestAuthor();
-            Author author2 = saveAnotherTestAuthor();
-            Author author3 = saveTestAuthor3();
-            Set<Author> initialAuthors = Set.of(author1, author2);
-            Book book = saveTestBook(initialAuthors);
+            User user1 = saveTestAuthor();
+            User user2 = saveAnotherTestAuthor();
+            User user3 = saveTestAuthor3();
+            Set<User> initialUsers = Set.of(user1, user2);
+            Book book = saveTestBook(initialUsers);
 
-            Set<Long> newAuthorIds = Set.of(author2.getId(), author3.getId());
-            Set<Author> newAuthors  = Set.of(author2, author3);
+            Set<Long> newAuthorIds = Set.of(user2.getId(), user3.getId());
+            Set<User> newUsers = Set.of(user2, user3);
 
             BookRequest request = BookRequest.builder()
                     .title(book.getTitle())
@@ -323,16 +323,16 @@ public class BookServiceTest extends BaseServiceTest {
             );
 
             assertThat(response).usingRecursiveComparison().isEqualTo(expected);
-            assertThat(updatedBook.getAuthors()).isEqualTo(newAuthors);
+            assertThat(updatedBook.getUsers()).isEqualTo(newUsers);
         }
 
         @Test
         void shouldNotUpdateBookWhenDeleted() {
-            Author author1 = saveTestAuthor();
-            Author deletedAuthor = saveDeletedTestAuthor();
-            Book book = saveTestBook(Set.of(author1));
+            User user1 = saveTestAuthor();
+            User deletedUser = saveDeletedTestAuthor();
+            Book book = saveTestBook(Set.of(user1));
 
-            Set<Long> newAuthorIds = Set.of(author1.getId(), deletedAuthor.getId());
+            Set<Long> newAuthorIds = Set.of(user1.getId(), deletedUser.getId());
 
             BookRequest request = BookRequest.builder()
                     .title(book.getTitle())
@@ -357,8 +357,8 @@ public class BookServiceTest extends BaseServiceTest {
     class SoftDeleteTests {
         @Test
         void shouldMarkBookAsDeletedWhenExists() {
-            Author author = saveTestAuthor();
-            Book book = saveTestBook(Set.of(author));
+            User user = saveTestAuthor();
+            Book book = saveTestBook(Set.of(user));
 
             bookService.deleteSoft(book.getId());
 
@@ -368,8 +368,8 @@ public class BookServiceTest extends BaseServiceTest {
 
         @Test
         void shouldNotDeleteAlreadyDeletedBook() {
-            Author author = saveTestAuthor();
-            Book deletedBook = saveDeletedTestBook(Set.of(author));
+            User user = saveTestAuthor();
+            Book deletedBook = saveDeletedTestBook(Set.of(user));
             Instant originalDeletedAt = deletedBook.getDeletedAt();
 
             try {

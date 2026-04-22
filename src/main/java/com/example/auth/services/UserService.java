@@ -1,13 +1,13 @@
 package com.example.auth.services;
 
-import com.example.auth.dtos.authors.AuthorRequest;
-import com.example.auth.dtos.authors.AuthorResponse;
-import com.example.auth.entities.Author;
+import com.example.auth.dtos.users.UserRequest;
+import com.example.auth.dtos.users.UserResponse;
+import com.example.auth.entities.User;
 import com.example.auth.entities.Book;
 import com.example.auth.exceptions.InvalidRequestException;
 import com.example.auth.exceptions.ResourceNotFoundException;
-import com.example.auth.mappers.AuthorMapper;
-import com.example.auth.repositories.AuthorRepository;
+import com.example.auth.mappers.UserMapper;
+import com.example.auth.repositories.UserRepository;
 import com.example.auth.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,32 +20,32 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class AuthorService {
-    private final AuthorRepository authorRepository;
-    private final AuthorMapper authorMapper;
+public class UserService {
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
     private final BookRepository bookRepository;
 
     @Transactional
-    public AuthorResponse create(AuthorRequest request) {
-        Author author = authorMapper.toEntity(request);
+    public UserResponse create(UserRequest request) {
+        User user = userMapper.toEntity(request);
         Set<Long> requestIds = request.getBookIds();
         if (!requestIds.isEmpty()) {
             List<Book> activeBooks = bookRepository.findActiveByIds(request.getBookIds());
             checkBooksOfRequest(activeBooks, requestIds);
-            author.setBooks(new HashSet<>(activeBooks));
+            user.setBooks(new HashSet<>(activeBooks));
         } else {
-            author.setBooks(new HashSet<>());
+            user.setBooks(new HashSet<>());
         }
-        Author saved = authorRepository.save(author);
-        return authorMapper.toResponse(saved);
+        User saved = userRepository.save(user);
+        return userMapper.toResponse(saved);
     }
 
     @Transactional(readOnly = true)
-    public AuthorResponse getOne(Long authorId) {
-        Author author = authorRepository.findActiveById(authorId).orElseThrow(
+    public UserResponse getOne(Long authorId) {
+        User user = userRepository.findActiveById(authorId).orElseThrow(
                 () -> new ResourceNotFoundException("Author does not exist or deleted with such id " + authorId)
         );
-        return authorMapper.toResponse(author);
+        return userMapper.toResponse(user);
     }
 
     private void checkBooksOfRequest(List<Book> activeBooks, Set<Long> requestIds) {
