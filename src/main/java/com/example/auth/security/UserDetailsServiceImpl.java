@@ -1,7 +1,7 @@
 package com.example.auth.security;
 
-import com.daria.recipe.app.entity.User;
-import com.daria.recipe.app.repository.UserRepository;
+import com.example.auth.entities.User;
+import com.example.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +16,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public @NonNull UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        User user = userRepository.findActiveByUserName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found or deleted: " + username));
 
         return new CustomUserDetails(user);
     }

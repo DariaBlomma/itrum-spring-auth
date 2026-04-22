@@ -1,17 +1,11 @@
 spring:
   application:
     name: auth
-  h2:
-    console:
-      enabled: true  # Включаем веб-консоль
-      path: /h2-console  # Доступ по http://localhost:8080/api/h2-console
-      settings:
-        web-allow-others: false
   datasource:
-    url: jdbc:h2:mem:authdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
     hibernate:
@@ -33,3 +27,8 @@ server:
     key-store-password: changeit
     key-store-type: PKCS12
     key-alias: tomcat
+
+jwt:
+  secret: ${JWT_SECRET:x3BSPl2F6tZlwXxFAkGBvB5pulyf7ABPtwUdPOL6Zws=}
+  token:
+    expiration: 24h

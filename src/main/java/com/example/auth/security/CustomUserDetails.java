@@ -1,6 +1,6 @@
 package com.example.auth.security;
 
-import com.daria.recipe.app.entity.User;
+import com.example.auth.entities.User;
 import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +16,7 @@ public class CustomUserDetails implements UserDetails {
 
     public CustomUserDetails(User user) {
         this.id = user.getId();
-        this.username = user.getUserName();
+        this.username = user.getUsername();
         this.password = user.getPassword();
     }
 
@@ -36,22 +36,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
     public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
         return true;
     }
 }

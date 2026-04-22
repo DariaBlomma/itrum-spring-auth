@@ -1,5 +1,6 @@
 package com.example.auth.controllers;
 
+import com.example.auth.dtos.users.UserResponse;
 import com.example.auth.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String getMe(@PathVariable("id") Long userId) {
+    public UserResponse getMe(@PathVariable("id") Long userId) {
         return userService.getMe(userId);
     }
 }
