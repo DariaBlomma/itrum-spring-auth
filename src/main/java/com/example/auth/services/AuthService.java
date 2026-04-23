@@ -23,7 +23,7 @@ public class AuthService {
 
     @Transactional
     public AuthResponse signUp(SignUpRequest request) {
-        UserResponse userResponse = userService.create(request);
+        UserResponse userResponse = userService.create(userMapper.signUpToPlainUserRequest(request));
         return buildAuthResponse(userResponse);
     }
 

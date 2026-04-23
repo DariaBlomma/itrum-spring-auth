@@ -1,5 +1,6 @@
 package com.example.auth.dtos.users;
 
+import com.example.auth.enums.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,4 +21,7 @@ public class UserRequest {
     @NotBlank(message = "User password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    @NotNull(message = "Role is required")
+    private UserRole role;
 }

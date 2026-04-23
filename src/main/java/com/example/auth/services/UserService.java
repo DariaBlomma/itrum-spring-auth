@@ -1,6 +1,7 @@
 package com.example.auth.services;
 
 import com.example.auth.dtos.auth.SignUpRequest;
+import com.example.auth.dtos.users.UserRequest;
 import com.example.auth.dtos.users.UserResponse;
 import com.example.auth.dtos.users.UserResponseWithPassword;
 import com.example.auth.entities.User;
@@ -21,7 +22,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserResponse create(SignUpRequest request) {
+    public UserResponse create(UserRequest request) {
         if (userRepository.existsByUsernameAndDeletedAtIsNull(request.getUsername())) {
             throw new ConflictException("User with such name already exists");
         }

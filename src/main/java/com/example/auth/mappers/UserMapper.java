@@ -12,9 +12,11 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
     @Mapping(target = "password", ignore = true)
-    User toEntityWithoutPassword(SignUpRequest request);
+    User toEntityWithoutPassword(UserRequest request);
 
     User toEntity(UserRequest request);
+
+    UserRequest signUpToPlainUserRequest(SignUpRequest request);
 
     UserResponse toResponse(User user);
 
