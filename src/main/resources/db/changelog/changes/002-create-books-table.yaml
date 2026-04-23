@@ -20,7 +20,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: publication_year
-                  type: SMALLINT
+                  type: INTEGER
               - column:
                   name: page_count
                   type: INT
