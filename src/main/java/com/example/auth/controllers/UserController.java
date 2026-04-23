@@ -2,6 +2,7 @@ package com.example.auth.controllers;
 
 import com.example.auth.dtos.users.UserRequest;
 import com.example.auth.dtos.users.UserResponse;
+import com.example.auth.services.LoginAttemptService;
 import com.example.auth.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final LoginAttemptService loginAttemptService;
 
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     @PostMapping
@@ -27,4 +29,12 @@ public class UserController {
     public UserResponse getMe(@PathVariable("id") Long userId) {
         return userService.getMe(userId);
     }
+
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PostMapping("/{id}/unlock")
+    @ResponseStatus(HttpStatus.OK)
+    public void unlock(@PathVariable("id") Long userId) {
+        loginAttemptService.unlockAccount(userId);
+    }
+
 }

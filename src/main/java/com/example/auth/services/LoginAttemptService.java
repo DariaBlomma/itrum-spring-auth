@@ -36,7 +36,7 @@ public class LoginAttemptService {
 
 
     @Transactional
-    private void unlockAccount(Long userId) {
+    public void unlockAccount(Long userId) {
         User user = userRepository.findActiveById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found or deleted: " + userId));
         user.setAccountNonLocked(true);
