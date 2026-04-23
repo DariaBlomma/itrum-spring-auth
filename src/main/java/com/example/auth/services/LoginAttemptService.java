@@ -5,6 +5,7 @@ import com.example.auth.exceptions.ResourceNotFoundException;
 import com.example.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -20,7 +21,7 @@ public class LoginAttemptService {
         user.setFailedAttempts(0);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void loginFailed(String username) {
         User user = userRepository.findActiveByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found or deleted: " + username));

@@ -41,9 +41,11 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 
+    @Builder.Default
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isAccountNonLocked = true;
 
+    @Builder.Default
     @Column(nullable = false, columnDefinition = "INTEGER DEFAULT 0")
     private int failedAttempts = 0;
 
