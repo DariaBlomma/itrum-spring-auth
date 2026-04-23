@@ -16,6 +16,7 @@ public class CustomUserDetails implements UserDetails {
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean enabled;
+    private final boolean isAccountNonLocked;
 
     public CustomUserDetails(User user) {
         this.id = user.getId();
@@ -25,6 +26,7 @@ public class CustomUserDetails implements UserDetails {
                 new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
         );
         this.enabled = user.getDeletedAt() == null;
+        this.isAccountNonLocked = user.isAccountNonLocked();
     }
 
     @Override
@@ -44,6 +46,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked;
     }
 }

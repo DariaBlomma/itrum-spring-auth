@@ -10,9 +10,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
@@ -42,6 +40,12 @@ public class User {
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private boolean isAccountNonLocked = true;
+
+    @Column(nullable = false, columnDefinition = "INTEGER DEFAULT 0")
+    private int failedAttempts = 0;
 
     private Instant deletedAt;
 
