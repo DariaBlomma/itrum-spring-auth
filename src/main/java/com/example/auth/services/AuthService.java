@@ -10,11 +10,13 @@ import com.example.auth.exceptions.UnauthorizedException;
 import com.example.auth.mappers.UserMapper;
 import com.example.auth.security.JwtService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -27,6 +29,7 @@ public class AuthService {
     @Transactional
     public AuthResponse signUp(SignUpRequest request) {
         UserResponse userResponse = userService.create(userMapper.signUpToPlainUserRequest(request));
+        log.info("TOKEN GENERATED: JWT issued for user '{}'", request.getUsername());
         return buildAuthResponse(userResponse);
     }
 

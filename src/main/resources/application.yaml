@@ -35,3 +35,10 @@ jwt:
   secret: ${JWT_SECRET:x3BSPl2F6tZlwXxFAkGBvB5pulyf7ABPtwUdPOL6Zws=}
   token:
     expiration: 24h
+
+logging:
+  level:
+    com.example.auth: INFO
+    com.example.auth.services.LoginAttemptService: DEBUG
+  file:
+    name: logs/auth.log

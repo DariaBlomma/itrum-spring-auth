@@ -1,0 +1,51 @@
+2026-04-23T18:28:29.947+03:00  INFO 10864 --- [auth] [main] com.example.auth.AuthApplication         : Starting AuthApplication using Java 21.0.10 with PID 10864 (E:\Users\Daria\Programming\itrum-spring-auth\target\classes started by Daria in E:\Users\Daria\Programming\itrum-spring-auth)
+2026-04-23T18:28:29.948+03:00  INFO 10864 --- [auth] [main] com.example.auth.AuthApplication         : The following 1 profile is active: "dev"
+2026-04-23T18:28:30.274+03:00  INFO 10864 --- [auth] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-23T18:28:30.302+03:00  INFO 10864 --- [auth] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 2 JPA repository interfaces.
+2026-04-23T18:28:30.613+03:00  INFO 10864 --- [auth] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8443 (https)
+2026-04-23T18:28:30.621+03:00  INFO 10864 --- [auth] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-23T18:28:30.621+03:00  INFO 10864 --- [auth] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-04-23T18:28:30.641+03:00  INFO 10864 --- [auth] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 670 ms
+2026-04-23T18:28:30.689+03:00  INFO 10864 --- [auth] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-23T18:28:30.759+03:00  INFO 10864 --- [auth] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@e3899fd
+2026-04-23T18:28:30.760+03:00  INFO 10864 --- [auth] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-23T18:28:30.825+03:00  INFO 10864 --- [auth] [main] liquibase.database                       : Set default schema name to public
+2026-04-23T18:28:31.416+03:00  INFO 10864 --- [auth] [main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-04-23T18:28:31.447+03:00  INFO 10864 --- [auth] [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-04-23T18:28:31.448+03:00  INFO 10864 --- [auth] [main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-04-23T18:28:31.452+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : UPDATE SUMMARY
+2026-04-23T18:28:31.452+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : Run:                          0
+2026-04-23T18:28:31.452+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : Previously run:               2
+2026-04-23T18:28:31.452+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : Filtered out:                 0
+2026-04-23T18:28:31.452+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : -------------------------------
+2026-04-23T18:28:31.452+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : Total change sets:            2
+2026-04-23T18:28:31.453+03:00  INFO 10864 --- [auth] [main] liquibase.util                           : Update summary generated
+2026-04-23T18:28:31.453+03:00  INFO 10864 --- [auth] [main] liquibase.command                        : Command execution complete
+2026-04-23T18:28:31.494+03:00  INFO 10864 --- [auth] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-23T18:28:31.519+03:00  INFO 10864 --- [auth] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-04-23T18:28:31.734+03:00  INFO 10864 --- [auth] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-23T18:28:31.775+03:00  INFO 10864 --- [auth] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/testdb]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.13
+	Default catalog/schema: testdb/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-23T18:28:32.305+03:00  INFO 10864 --- [auth] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-23T18:28:32.328+03:00  INFO 10864 --- [auth] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-23T18:28:32.360+03:00  INFO 10864 --- [auth] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-23T18:28:32.836+03:00  INFO 10864 --- [auth] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-04-23T18:28:33.122+03:00  INFO 10864 --- [auth] [main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-8443], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-04-23T18:28:33.129+03:00  INFO 10864 --- [auth] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8443 (https) with context path '/api'
+2026-04-23T18:28:33.132+03:00  INFO 10864 --- [auth] [main] com.example.auth.AuthApplication         : Started AuthApplication in 3.44 seconds (process running for 3.649)
+2026-04-23T18:28:43.337+03:00  INFO 10864 --- [auth] [https-jsse-nio-8443-exec-8] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-23T18:28:43.338+03:00  INFO 10864 --- [auth] [https-jsse-nio-8443-exec-8] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-23T18:28:43.338+03:00  INFO 10864 --- [auth] [https-jsse-nio-8443-exec-8] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-04-23T18:28:43.500+03:00  INFO 10864 --- [auth] [https-jsse-nio-8443-exec-8] com.example.auth.services.AuthService    : TOKEN GENERATED: JWT issued for user 'Plain user 1'
+2026-04-23T18:28:52.889+03:00  INFO 10864 --- [auth] [https-jsse-nio-8443-exec-2] c.e.auth.services.LoginAttemptService    : LOGIN SUCCESS: User 'Super admin user 1' logged in successfully
+2026-04-23T18:29:03.182+03:00  INFO 10864 --- [auth] [https-jsse-nio-8443-exec-7] c.e.auth.services.LoginAttemptService    : ACCOUNT UNLOCKED: Admin unlocked user '2'
