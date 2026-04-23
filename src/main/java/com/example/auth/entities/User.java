@@ -29,7 +29,7 @@ public class User {
     private String username;
 
     @NotBlank(message = "Password is required")
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)

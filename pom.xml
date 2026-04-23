@@ -45,6 +45,10 @@
 			<scope>runtime</scope>
 		</dependency>
 <!--		end DB-->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 <!--		test-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
