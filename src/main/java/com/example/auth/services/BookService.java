@@ -32,7 +32,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public BookResponse getOne(Long userId, Long bookId) {
         Book book = bookRepository.findActiveByIdForUser(bookId, userId).orElseThrow(
-                () -> new ResourceNotFoundException("Active book does not exist or does not belong to user " + bookId));
+                () -> new ResourceNotFoundException("Active book does not exist or does not belong to user. Book id: " + bookId));
         return bookMapper.toResponse(book);
     }
 }

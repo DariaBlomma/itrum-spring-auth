@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 public class AuthApplication {
 
 	public static void main(String[] args) {
+		System.out.println("=== DB PASSWORD: " + System.getenv("SPRING_DATASOURCE_PASSWORD"));
 		SpringApplication.run(AuthApplication.class, args);
 	}
 
