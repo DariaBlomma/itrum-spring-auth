@@ -26,8 +26,4 @@ public class BookRequest {
     private Integer pageCount;
 
     private Boolean isHardcover;
-
-    @NotNull(message = "Authors list is required")
-    @NotEmpty(message = "At least one author is required")
-    private Set<Long> authorIds;
 }

@@ -33,13 +33,8 @@ public class Book {
     @Column(name = "is_hardcover")
     private Boolean isHardcover;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
-    private Set<Author> authors = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     private Instant deletedAt;
 

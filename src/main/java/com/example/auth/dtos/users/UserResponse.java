@@ -1,5 +1,6 @@
-package com.example.auth.dtos.authors;
+package com.example.auth.dtos.users;
 
+import com.example.auth.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +11,9 @@ import java.time.Instant;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class AuthorResponse {
+public class UserResponse {
     private Long id;
-    private String name;
+    private String username; // login name
+    private UserRole role;
     private Instant deletedAt;
 }

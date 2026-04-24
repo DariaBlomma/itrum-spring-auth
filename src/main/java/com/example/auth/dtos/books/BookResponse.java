@@ -18,6 +18,6 @@ public class BookResponse {
     private Year publicationYear;
     private Integer pageCount;
     private Boolean isHardcover;
-    private Set<Long> authorIds;
+    private Long userId;
     private Instant deletedAt;
 }
